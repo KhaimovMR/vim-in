@@ -22,15 +22,21 @@ initial_setup() {
         echo ''
     fi
 
-    chmod 755 $HOME/.vimrc
-    chmod 755 $HOME/.vim -R
-    chmod 755 $HOME/.vim-in/vim
-    chmod 777 $HOME/.vim-in
+    sudo chmod 755 $HOME/.vimrc
+    sudo chmod 755 $HOME/.vim -R
+    sudo chmod 755 $HOME/.vim-in/vim
+    sudo chmod 777 $HOME/.vim-in
 }
 
 if [[ $1 == "" ]]
 then
     print_usage
+    exit 0
+fi
+
+if [[ $1 == "-i" ]]
+then
+    initial_setup
     exit 0
 fi
 
