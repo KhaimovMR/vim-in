@@ -15,10 +15,10 @@ initial_setup() {
     then
         echo "#!/bin/bash" > $HOME/.vim-in/vim
         echo "export HOME=$HOME" >> $HOME/.vim-in/vim
-        echo "export MYVIMRC=$HOME/.vimrc" >> $HOME/.vim-in/vim
-        echo "vim -i $HOME/.vim-in/\$USER.viminfo --cmd 'set runtimepath^=$HOME/.vim' --cmd 'set runtimepath+=$HOME/.vim/after' --cmd 'set runtimepath+=$HOME/.vim/bundle/Vundle.vim' \$@" >> $HOME/.vim-in/vim
+        echo "export MYVIMRC=$HOME/.config/nvim/init.vim" >> $HOME/.vim-in/vim
+        echo "vim -i $HOME/.vim-in/\$USER.viminfo --cmd 'set runtimepath^=$HOME/.vim' --cmd 'set runtimepath+=$HOME/.vim/after' --cmd 'set runtimepath+=$HOME/.local/share/nvim/site/autoload/plug.vim' \$@" >> $HOME/.vim-in/vim
         echo -e "${GREEN}Successfuly created ${BLUE}$HOME/.vim-in/vim${GREEN} script to run your vim configuration${NC}"
-        echo -e "Edit ${BLUE}$HOME/.vim-in/vim${NC} if you're using other than Vundle package manager."
+        echo -e "Edit ${BLUE}$HOME/.vim-in/vim${NC} if you're using other than Plug package manager."
         echo ''
     fi
 
