@@ -10,19 +10,20 @@ print_usage(){
 
 initial_setup() {
     mkdir -p $HOME/.vim-in
+    MYVIMRC_PATH=$HOME/.config/nvim/init.vim
 
     if [[ ! -f $HOME/.vim-in/vim ]]
     then
         echo "#!/bin/bash" > $HOME/.vim-in/vim
         echo "export HOME=$HOME" >> $HOME/.vim-in/vim
-        echo "export MYVIMRC=$HOME/.config/nvim/init.vim" >> $HOME/.vim-in/vim
+        echo "export MYVIMRC=$MYVIMRC_PATH" >> $HOME/.vim-in/vim
         echo "vim -i $HOME/.vim-in/\$USER.viminfo --cmd 'set runtimepath^=$HOME/.vim' --cmd 'set runtimepath+=$HOME/.vim/after' --cmd 'set runtimepath+=$HOME/.local/share/nvim/site/autoload/plug.vim' \$@" >> $HOME/.vim-in/vim
         echo -e "${GREEN}Successfuly created ${BLUE}$HOME/.vim-in/vim${GREEN} script to run your vim configuration${NC}"
         echo -e "Edit ${BLUE}$HOME/.vim-in/vim${NC} if you're using other than Plug package manager."
         echo ''
     fi
 
-    sudo chmod 755 $HOME/.vimrc
+    sudo chmod 755 $MYVIMRC_PATH
     sudo chmod 755 $HOME/.vim -R
     sudo chmod 755 $HOME/.vim-in/vim
     sudo chmod 777 $HOME/.vim-in
