@@ -1,0 +1,4 @@
+
+# vim-in init {
+[[ "$SUDO_USER" != "" ]] && [[ -f $(eval echo ~$SUDO_USER)/.vim-in/vim ]] && alias vim=$(eval echo ~$SUDO_USER)/.vim-in/vim && export EDITOR=$(eval echo ~$SUDO_USER)/.vim-in/vim
+# vim-in init }

@@ -3,6 +3,7 @@ NC='\033[0m'
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
+SCRIPT_DIR=$(dirname $0)
 
 print_usage(){
     echo "Usage: under your user run './seed-vim-in.sh <user-to-seed>' where <user-to-seed> is the name of user, under which you want to be able to use your own vim configuration."
@@ -10,7 +11,8 @@ print_usage(){
 
 initial_setup() {
     mkdir -p $HOME/.vim-in
-    MYVIMRC_PATH=$HOME/.config/nvim/init.vim
+    NVIM_CONFIG_PATH_PART='/.config/nvim/init.vim'
+    MYVIMRC_PATH=$HOME$NVIM_CONFIG_PATH_PART
 
     if [[ ! -f $HOME/.vim-in/vim ]]
     then
@@ -44,14 +46,13 @@ fi
 id_msg=$(id -u $1 2>&1)
 id_exit_code=$?
 
-if [[ $id_exit_code != 0 ]]
-then
+if [[ $id_exit_code != 0 ]]; then
     [[ $id_exit_code != 0 ]] && echo -e "${RED}$id_msg${NC}" && echo ''
     print_usage
     exit 1
 else
     initial_setup
-    command sudo su $1 -c "echo '' >> ~/.bashrc && echo '# vim-in init {' >> ~/.bashrc && echo '[[ \"\$SUDO_USER\" != \"\" ]] && [[ -f \`eval echo ~\$SUDO_USER\`/.vim-in/vim ]] && alias vim=\`eval echo ~\$SUDO_USER\`/.vim-in/vim' >> ~/.bashrc && echo '# vim-in init }' >> ~/.bashrc "
+    command sudo su $1 -c "cat $SCRIPT_DIR/vim-in-source >> ~/.bashrc"
 
     [[ $? == 0 ]] && echo -e "${GREEN}vim-in successfuly seeded for user:${NC} $1"
 fi
