@@ -28,7 +28,7 @@ initial_setup() {
     sudo chmod 777 $HOME/.vim-in
 }
 
-if [[ $1 == "" ]]
+if [ -z "$1" ]
 then
     print_usage
     exit 0
@@ -43,8 +43,7 @@ fi
 id_msg=$(id -u $1 2>&1)
 id_exit_code=$?
 
-if [[ $id_exit_code != 0 ]]
-then
+if [ $id_exit_code != 0 ]; then
     [[ $id_exit_code != 0 ]] && echo -e "${RED}$id_msg${NC}" && echo ''
     print_usage
     exit 1
